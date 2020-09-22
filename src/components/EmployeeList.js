@@ -36,6 +36,9 @@ class EmployeeList extends React.Component {
             return (
               <Employee
                 name={person.name.title + ' ' + person.name.first + ' ' + person.name.last}
+                phone={person.phone}
+                cell={person.cell}
+                picture={person.picture.thumbnail}
               />
             )
           })}
