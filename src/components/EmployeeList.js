@@ -10,7 +10,8 @@ class EmployeeList extends React.Component {
 
     this.state = {
       employees: [],
-      search: ""
+      search: "",
+      afterFilter: []
     }
   }
 
@@ -18,7 +19,8 @@ class EmployeeList extends React.Component {
     // res.data.results[0] is an array of 100 random employees
     API.search().then((res) => {
       this.setState({
-        employees: res.data.results
+        employees: res.data.results,
+        afterFilter: res.data.results
       })
     }).catch((err) => {
       console.log(err);
@@ -36,7 +38,7 @@ class EmployeeList extends React.Component {
     }).then(() => {
       let filtered = this.filterEmps()
       this.setState({
-        employees: filtered
+        afterFilter: filtered
       })
     })
 
@@ -71,7 +73,7 @@ class EmployeeList extends React.Component {
           handleInputChange={this.handleInputChange}
         />
         <ul>
-          {this.state.employees.map((person) => {
+          {this.state.afterFilter.map((person) => {
             return (
               <div key={person.phone}>
                 <Employee
