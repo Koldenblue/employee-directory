@@ -7,29 +7,29 @@ class SearchForm extends React.Component {
   // }
 
 
-
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.handleFormSubmit()
   }
+
 
   render() {
     return (
       <form>
         <div className="form-group">
-          <label htmlFor="search">Search:</label>
+          <label htmlFor="search">Search for an employee:</label>
           <input
             onChange={this.props.handleInputChange}
             // value={}
             name="search"
             type="text"
             className="form-control"
-            placeholder="Search For an Employee"
+            placeholder="Employee Name"
             id="search"
           />
           <br />
-          <button onClick={this.handleFormSubmit} className="btn btn-primary">
-            Search
+          <button onClick={this.props.handleFormSubmit} className="btn btn-primary">
+            Sort
           </button>
         </div>
       </form>
