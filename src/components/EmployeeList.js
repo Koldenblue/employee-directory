@@ -3,7 +3,8 @@ import { brotliCompress } from "zlib";
 import API from "../utils/API";
 import Employee from "./Employee"
 import SearchForm from "./SearchForm";
-const util = require("util")
+import AgeSortBtn from "./AgeSortBtn";
+const util = require("util");
 
 class EmployeeList extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class EmployeeList extends React.Component {
       employees: [],
       employeeNames: [],
       search: "",
-      afterFilter: []
+      afterFilter: [],
+      ageSortOrder: -1
     }
   }
 
@@ -53,17 +55,20 @@ class EmployeeList extends React.Component {
     })
   }
 
-  handleFormSubmit = (event) => {
+  sortByAge = (event) => {
     event.preventDefault();
     console.log("clicked")
     console.log(this.state.employees)
+    // sorting employees array by age:
     let sorted = this.state.employees.sort(((a, b) => {
-      return (a.dob.age - b.dob.age)
+      return (a.dob.age + (this.state.ageSortOrder * b.dob.age))
     }));
+    // sort Order is multiplied by -1 so it will reverse sort when next clicked
     console.log(sorted)
     this.setState({
       employees: sorted,
-      afterFilter: sorted
+      afterFilter: sorted,
+      ageSortOrder: this.state.ageSortOrder * -1
     })
   }
 
@@ -91,11 +96,13 @@ class EmployeeList extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.findEmployees}>Hire some new employees</button>
+      <main className='container'>
+        <button className='btn btn-success' onClick={this.findEmployees}>Hire some new employees</button>
+        <AgeSortBtn
+          sortByAge={this.sortByAge}
+        />
         <SearchForm
           handleInputChange={this.handleInputChange}
-          handleFormSubmit={this.handleFormSubmit}
         />
         <ul>
           {this.state.afterFilter.map((person) => {
@@ -112,7 +119,7 @@ class EmployeeList extends React.Component {
             )
           })}
         </ul>
-      </div>
+      </main>
     )
   }
 }

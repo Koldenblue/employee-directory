@@ -11,7 +11,7 @@ class Employee extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='employee-box'>
         <p>
           {this.props.name}
         </p>

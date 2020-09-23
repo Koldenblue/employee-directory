@@ -1,5 +1,10 @@
 body {
   height: 100vh;
   background: rgb(83,164,198);
+}
 
+.employee-box {
+  border-style: dotted;
+  border-width: 3px;
+  border-color: darkgoldenrod;
 }

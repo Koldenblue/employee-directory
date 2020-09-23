@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../index.css"
 class SearchForm extends React.Component {
 
   // state = {
@@ -28,9 +28,7 @@ class SearchForm extends React.Component {
             id="search"
           />
           <br />
-          <button onClick={this.props.handleFormSubmit} className="btn btn-primary">
-            Sort by Age
-          </button>
+
         </div>
       </form>
     );
