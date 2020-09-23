@@ -29,7 +29,7 @@ class SearchForm extends React.Component {
           />
           <br />
           <button onClick={this.props.handleFormSubmit} className="btn btn-primary">
-            Sort
+            Sort by Age
           </button>
         </div>
       </form>

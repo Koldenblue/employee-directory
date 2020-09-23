@@ -61,6 +61,10 @@ class EmployeeList extends React.Component {
       return (a.dob.age - b.dob.age)
     }));
     console.log(sorted)
+    this.setState({
+      employees: sorted,
+      afterFilter: sorted
+    })
   }
 
 
@@ -102,6 +106,7 @@ class EmployeeList extends React.Component {
                   phone={person.phone}
                   cell={person.cell}
                   picture={person.picture.thumbnail}
+                  age={person.dob.age}
                 />
               </div>
             )

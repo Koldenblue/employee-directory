@@ -21,6 +21,9 @@ class Employee extends React.Component {
         <p>
           Cell phone: {this.props.cell}
         </p>
+        <p>
+          Age: {this.props.age}
+        </p>
         <img src={this.props.picture} alt='employee'></img>
       </div>
     )
