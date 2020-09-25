@@ -9,11 +9,17 @@ class Employee extends React.Component {
     }
   }
 
+  styles = {
+    employeeThumb: {
+      'float': 'right'
+    }
+  }
   render() {
     return (
       <div className='employee-box'>
+        <img src={this.props.picture} alt='employee' style={this.styles.employeeThumb}></img>
         <p>
-          {this.props.name}
+          <strong>{this.props.name}</strong>
         </p>
         <p>
           Home phone: {this.props.phone}
@@ -24,7 +30,6 @@ class Employee extends React.Component {
         <p>
           Age: {this.props.age}
         </p>
-        <img src={this.props.picture} alt='employee'></img>
       </div>
     )
   }
