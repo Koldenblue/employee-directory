@@ -16,7 +16,7 @@ class AgeSortBtn extends React.Component {
 
   render() {
     return (
-      <button onClick={this.sortToggle} className="btn btn-primary">
+      <button onClick={this.sortToggle} className="btn btn-warning">
         {this.state.btnText}
       </button>
     )

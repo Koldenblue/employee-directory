@@ -17,7 +17,7 @@ class Employee extends React.Component {
   render() {
     return (
       <div className='employee-box'>
-        <img src={this.props.picture} alt='employee' style={this.styles.employeeThumb}></img>
+        <img src={this.props.picture} alt='employee' style={this.styles.employeeThumb} className='emp-image'></img>
         <p>
           <strong>{this.props.name}</strong>
         </p>

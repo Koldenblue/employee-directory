@@ -16,8 +16,8 @@ class SearchForm extends React.Component {
   render() {
     return (
       <form>
-        <div className="form-group">
-          <label htmlFor="search">Search for an employee (Case Sensitive):</label>
+        <div className="form-group emp-search">
+          <label htmlFor="search">Search for an employee by name:</label>
           <input
             onChange={this.props.handleInputChange}
             // value={}

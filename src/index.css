@@ -8,3 +8,46 @@ body {
   border-width: 3px;
   border-color: darkgoldenrod;
 }
+
+.employee-box:hover {
+  background-color: floralwhite;
+  text-shadow: 1px 2px 4px  indigo;
+}
+
+.employee-box:hover .emp-image {
+  height: 72px;
+  width: 72px;
+}
+
+.btn {
+  margin: 5px;
+}
+
+.logo {
+  float: left;
+}
+
+.emp-search {
+  display: inline;
+}
+
+hr {
+  padding: 0;
+  margin: .2em;
+}
+.footer {
+
+  background-color: lavender;
+  text-align: center;
+  margin-bottom: 0;
+  width: 100%;
+  position: absolute;
+  padding: 0.8em;
+  padding-bottom: .2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#credit {
+  padding: 0;
+  margin: .2em;
+}

@@ -4,6 +4,8 @@ import API from "../utils/API";
 import Employee from "./Employee"
 import SearchForm from "./SearchForm";
 import AgeSortBtn from "./AgeSortBtn";
+import NameSortBtn from "./NameSortBtn";
+import Logo from "./Logo";
 const util = require("util");
 
 class EmployeeList extends React.Component {
@@ -17,8 +19,10 @@ class EmployeeList extends React.Component {
       employees: [],
       employeeNames: [],
       search: "",
+      // afterFilter is the list of employees after the search filter is applied
       afterFilter: [],
-      ageSortOrder: -1
+      ageSortOrder: -1,
+      nameSortOrder: 1
     }
   }
 
@@ -42,11 +46,12 @@ class EmployeeList extends React.Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-
     // using promisified set state to make sure that searchbar input state is set
     // before using it in the filter function
+    // Search form state is set to state of input.
     this.asyncSetState({
-      [name]: value
+      [name]: value.toLowerCase()
+    // Then 
     }).then(() => {
       let filtered = this.filterEmps()
       this.setState({
@@ -72,18 +77,36 @@ class EmployeeList extends React.Component {
     })
   }
 
+  sortByName = (event) => {
+    event.preventDefault();
+    console.log("clicked sort by name");
+    console.log(this.state.employees);
+    let sorted = this.state.employees.sort((a, b) => {
+      let fullNameA = a.name.first.toLowerCase() + ' ' + a.name.last.toLowerCase();
+      let fullNameB = b.name.first.toLowerCase() + ' ' + b.name.last.toLowerCase();
+      if (fullNameA < fullNameB) {
+        return -1 * this.state.nameSortOrder;
+      }
+      if (fullNameB < fullNameA) {
+        return 1 * this.state.nameSortOrder;
+      }
+      return 0;
+    })
+    this.setState({
+      employees: sorted,
+      afterFilter: sorted,
+      nameSortOrder: this.state.nameSortOrder * -1
+    })
+    console.log(sorted)
+  }
 
-  // filters employees by name depending on the search input
+  // returns a list of filtered employees by name depending on the search form input
   filterEmps = () => {
     let filteredEmps = this.state.employees;
     console.log(filteredEmps)
     // this.state.search is the form input value
     filteredEmps = filteredEmps.filter((person) => {
-      if ((person.name.first + person.name.last).includes(this.state.search)) {
-        console.log(true)
-        console.log(person.name.first + person.name.last)
-      }
-      return (person.name.first + ' ' + person.name.last).includes(this.state.search)
+      return (person.name.first.toLowerCase() + ' ' + person.name.last.toLowerCase()).includes(this.state.search)
     })
     console.log(filteredEmps)
     return filteredEmps;
@@ -96,29 +119,43 @@ class EmployeeList extends React.Component {
 
   render() {
     return (
-      <main className='container'>
-        <button className='btn btn-success' onClick={this.findEmployees}>Hire some new employees</button>
-        <AgeSortBtn
-          sortByAge={this.sortByAge}
-        />
-        <SearchForm
-          handleInputChange={this.handleInputChange}
-        />
-        <ul>
-          {this.state.afterFilter.map((person) => {
-            return (
-              <div key={person.phone}>
-                <Employee
-                  name={person.name.title + ' ' + person.name.first + ' ' + person.name.last}
-                  phone={person.phone}
-                  cell={person.cell}
-                  picture={person.picture.thumbnail}
-                  age={person.dob.age}
-                />
+      <main className='container-fluid'>
+        <div className='row'>
+          <div className='col-xl-3'>
+            <Logo />
+          </div>
+          <div className='col-xl-9'>
+            <div className='row'>
+              <button className='btn btn-success' onClick={this.findEmployees}>Hire some new employees</button>
+              <AgeSortBtn sortByAge={this.sortByAge} />
+              <NameSortBtn sortByName={this.sortByName} />
+            </div>
+            <div className='row'>
+              <div className='col-md-12'>
+                <SearchForm handleInputChange={this.handleInputChange} />
               </div>
-            )
-          })}
-        </ul>
+            </div>
+          </div>
+        </div>
+
+
+          <div className='container'>
+            <ul>
+              {this.state.afterFilter.map((person) => {
+                return (
+                  <div key={person.phone}>
+                    <Employee
+                      name={person.name.title + ' ' + person.name.first + ' ' + person.name.last}
+                      phone={person.phone}
+                      cell={person.cell}
+                      picture={person.picture.thumbnail}
+                      age={person.dob.age}
+                    />
+                  </div>
+                )
+              })}
+            </ul>
+          </div>
       </main>
     )
   }
